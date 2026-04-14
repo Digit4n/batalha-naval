@@ -1,0 +1,82 @@
+algoritmo "BatalhaNavalCompleta"
+
+var
+   tabuleiro: matriz[1..5,1..5] de caractere
+   linha, coluna: inteiro
+   vidas, acertos: inteiro
+
+procedimento inicializarTabuleiro
+var i,j: inteiro
+inicio
+   para i de 1 ate 5 faca
+      para j de 1 ate 5 faca
+         tabuleiro[i,j] <- "~"
+      fimpara
+   fimpara
+
+   // Navio de 3 casas
+   tabuleiro[2,2] <- "N"
+   tabuleiro[2,3] <- "N"
+   tabuleiro[2,4] <- "N"
+
+   // Navio de 2 casas
+   tabuleiro[4,1] <- "N"
+   tabuleiro[5,1] <- "N"
+
+   // Navios de 1 casa
+   tabuleiro[1,5] <- "N"
+   tabuleiro[5,5] <- "N"
+fimprocedimento
+
+procedimento Tabuleiro
+var i,j: inteiro
+inicio
+   escreval("Tabuleiro:")
+   para i de 1 ate 5 faca
+      para j de 1 ate 5 faca
+         escreva(tabuleiro[i,j], " ")
+      fimpara
+      escreval("")
+   fimpara
+fimprocedimento
+
+inicio
+   inicializarTabuleiro
+   vidas <- 5
+   acertos <- 0
+
+   escreval("=== BATALHA NAVAL ===")
+
+   enquanto (vidas > 0) e (acertos < 7) faca
+      mostrarTabuleiro
+
+      escreva("Linha (1-5): ")
+      leia(linha)
+      escreva("Coluna (1-5): ")
+      leia(coluna)
+
+      se tabuleiro[linha,coluna] = "N" entao
+         escreval("ACERTOU!")
+         tabuleiro[linha,coluna] <- "X"
+         acertos <- acertos + 1
+
+      senao
+         se tabuleiro[linha,coluna] = "~" entao
+            escreval("ERROU! Perdeu 1 vida.")
+            tabuleiro[linha,coluna] <- "O"
+            vidas <- vidas - 1
+         senao
+            escreval("Posicao ja escolhida!")
+         fimse
+      fimse
+
+      escreval("Vidas restantes: ", vidas)
+   fimenquanto
+
+   se acertos = 7 entao
+      escreval("PARABENS! Voce destruiu todos os navios!")
+   senao
+      escreval("GAME OVER! Suas vidas acabaram.")
+   fimse
+
+fimalgoritmo
