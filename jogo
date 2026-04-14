@@ -1,82 +1,80 @@
-algoritmo "BatalhaNavalCompleta"
+algoritmo "BatalhaNaval"
 
 var
-   tabuleiro: matriz[1..5,1..5] de caractere
-   linha, coluna: inteiro
-   vidas, acertos: inteiro
-
-procedimento inicializarTabuleiro
-var i,j: inteiro
+ chance: inteiro
+ totalNa: inteiro
+ oceano :matriz[0..5, 0..5] de caractere
+ posicaoUser: caractere
+ posicao1:inteiro
+ posicao2: inteiro
+ 
 inicio
-   para i de 1 ate 5 faca
-      para j de 1 ate 5 faca
-         tabuleiro[i,j] <- "~"
-      fimpara
-   fimpara
+ oceano[0, 0] <- "D"
+ oceano[0, 1] <- "v"
+ oceano[0, 2] <- "v"
+ oceano[0, 3] <- "v"
+ oceano[0, 4] <- "v"
+ oceano[0, 5] <- "v"
 
-   // Navio de 3 casas
-   tabuleiro[2,2] <- "N"
-   tabuleiro[2,3] <- "N"
-   tabuleiro[2,4] <- "N"
+ oceano[1, 0] <- "D"
+ oceano[1, 1] <- "v"
+ oceano[1, 2] <- "v"
+ oceano[1, 3] <- "v"
+ oceano[1, 4] <- "v"
+ oceano[1, 5] <- "v"
 
-   // Navio de 2 casas
-   tabuleiro[4,1] <- "N"
-   tabuleiro[5,1] <- "N"
+ oceano[2, 0] <- "D"
+ oceano[2, 1] <- "v"
+ oceano[2, 2] <- "v"
+ oceano[2, 3] <- "v"
+ oceano[2, 4] <- "N"
+ oceano[2, 5] <- "v"
 
-   // Navios de 1 casa
-   tabuleiro[1,5] <- "N"
-   tabuleiro[5,5] <- "N"
-fimprocedimento
+ oceano[3, 0] <- "D"
+ oceano[3, 1] <- "v"
+ oceano[3, 2] <- "v"
+ oceano[3, 3] <- "B"
+ oceano[3, 4] <- "N"
+ oceano[3, 5] <- "v"
+ 
+ oceano[4, 0] <- "D"
+ oceano[4, 1] <- "E"
+ oceano[4, 2] <- "E"
+ oceano[4, 3] <- "E"
+ oceano[4, 4] <- "v"
+ oceano[4, 5] <- "v"
 
-procedimento Tabuleiro
-var i,j: inteiro
-inicio
-   escreval("Tabuleiro:")
-   para i de 1 ate 5 faca
-      para j de 1 ate 5 faca
-         escreva(tabuleiro[i,j], " ")
-      fimpara
-      escreval("")
-   fimpara
-fimprocedimento
+ oceano[5, 0] <- "N"
+ oceano[5, 1] <- "N"
+ oceano[5, 2] <- "v"
+ oceano[5, 3] <- "v"
+ oceano[5, 4] <- "v"
+ oceano[5, 5] <- "B"
 
-inicio
-   inicializarTabuleiro
-   vidas <- 5
-   acertos <- 0
+ chance <- 5
+ totalNa <- 0
 
-   escreval("=== BATALHA NAVAL ===")
+ repita
+   escreval("Primeira Coordenada")
+   leia(posicao1)
 
-   enquanto (vidas > 0) e (acertos < 7) faca
-      mostrarTabuleiro
+   escreval("Segunda Coordenada")
+   leia(posicao2)
 
-      escreva("Linha (1-5): ")
-      leia(linha)
-      escreva("Coluna (1-5): ")
-      leia(coluna)
-
-      se tabuleiro[linha,coluna] = "N" entao
-         escreval("ACERTOU!")
-         tabuleiro[linha,coluna] <- "X"
-         acertos <- acertos + 1
-
-      senao
-         se tabuleiro[linha,coluna] = "~" entao
-            escreval("ERROU! Perdeu 1 vida.")
-            tabuleiro[linha,coluna] <- "O"
-            vidas <- vidas - 1
-         senao
-            escreval("Posicao ja escolhida!")
-         fimse
-      fimse
-
-      escreval("Vidas restantes: ", vidas)
-   fimenquanto
-
-   se acertos = 7 entao
-      escreval("PARABENS! Voce destruiu todos os navios!")
-   senao
-      escreval("GAME OVER! Suas vidas acabaram.")
+   posicaoUser <- oceano[posicao1, posicao2]
+ 
+   se(posicaoUser = "v") entao
+     chance <- chance - 1
+     escreval("Nada! Quantidade de chances: ", chance)
+    senao
+     totalNa <- totalNa + 1 
+      escreval("Acertou: ", posicaoUser, "Total de acertos: ", totalNa)
    fimse
+ ate(chance = 0 ou totalNa = 13)
 
+  se(chance = 0) entao
+    escreval("Voce Perdeu!")
+  senao
+    escreval("Harikkite Ikou!")
+  fimse
 fimalgoritmo
