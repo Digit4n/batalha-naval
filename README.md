@@ -1,2 +1,2 @@
 # batalha-naval
-joguinho simples
+joginho simples
